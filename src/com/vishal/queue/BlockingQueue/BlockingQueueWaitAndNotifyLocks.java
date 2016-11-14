@@ -8,9 +8,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 //http://stackoverflow.com/questions/2536692/a-simple-scenario-using-wait-and-notify-in-java
 
-public class BlockingQueueWaitAndNotifyLocks<T> {
+public class BlockingQueueWaitAndNotifyLocks {
 
-    private Queue<T> queue = new LinkedList<T>();
+    private Queue queue = new LinkedList();
     private int capacity;
     private Lock lock = new ReentrantLock();
     private Condition notFull = lock.newCondition();
@@ -20,28 +20,27 @@ public class BlockingQueueWaitAndNotifyLocks<T> {
         this.capacity = capacity;
     }
 
-    public void enqueue(T element) throws InterruptedException {
+    public void enqueue(Object object) throws InterruptedException {
         lock.lock();
         try {
             while (queue.size() == capacity) {
                 notFull.await();
             }
-            queue.add(element);
+            queue.add(object);
             notEmpty.signal();
         } finally {
             lock.unlock();
         }
     }
 
-    public T dequeue() throws InterruptedException {
+    public void dequeue() throws InterruptedException {
         lock.lock();
         try {
             while (queue.isEmpty()) {
                 notEmpty.await();
             }
-            T item = queue.remove();
+            queue.poll();
             notFull.signal();
-            return item;
         } finally {
             lock.unlock();
         }
