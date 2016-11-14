@@ -1,4 +1,4 @@
-package com.vishal.queue;
+package com.vishal.queue.BlockingQueue;
 
 //http://tutorials.jenkov.com/java-concurrency/blocking-queues.html
 
