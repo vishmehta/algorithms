@@ -6,7 +6,7 @@ import java.util.List;
 
 //http://tutorials.jenkov.com/java-concurrency/blocking-queues.html
 //http://stackoverflow.com/questions/2536692/a-simple-scenario-using-wait-and-notify-in-java
-public class BlockingQueueWaitAndNotifyAll {
+public class BlockingQueueWaitAndNotifySynchronised {
 
     private final int LIMIT = 10;
     private List queue = new LinkedList();
