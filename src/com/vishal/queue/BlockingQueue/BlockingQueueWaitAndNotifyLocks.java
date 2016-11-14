@@ -20,7 +20,7 @@ public class BlockingQueueWaitAndNotifyLocks<T> {
         this.capacity = capacity;
     }
 
-    public void put(T element) throws InterruptedException {
+    public void enqueue(T element) throws InterruptedException {
         lock.lock();
         try {
             while (queue.size() == capacity) {
@@ -33,7 +33,7 @@ public class BlockingQueueWaitAndNotifyLocks<T> {
         }
     }
 
-    public T take() throws InterruptedException {
+    public T dequeue() throws InterruptedException {
         lock.lock();
         try {
             while (queue.isEmpty()) {
