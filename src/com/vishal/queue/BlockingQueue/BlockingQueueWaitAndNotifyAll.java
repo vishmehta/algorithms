@@ -1,10 +1,11 @@
 package com.vishal.queue.BlockingQueue;
 
-//http://tutorials.jenkov.com/java-concurrency/blocking-queues.html
 
 import java.util.LinkedList;
 import java.util.List;
 
+//http://tutorials.jenkov.com/java-concurrency/blocking-queues.html
+//http://stackoverflow.com/questions/2536692/a-simple-scenario-using-wait-and-notify-in-java
 public class BlockingQueueWaitAndNotifyAll {
 
     private final int LIMIT = 10;
@@ -15,20 +16,18 @@ public class BlockingQueueWaitAndNotifyAll {
         while (queue.size() == LIMIT) {
             wait();
         }
-        if (queue.size() == 0) {
-            notifyAll();
-        }
         queue.add(item);
+        notify();
+        //notifyAll(); //For multiple producers and consumers
     }
 
     public synchronized void dequeue(Object item) throws InterruptedException {
 
-        while (queue.size() == 0) {
+        while (queue.isEmpty()) {
             wait();
         }
-        if (queue.size() == LIMIT) {
-            notifyAll();
-        }
+        notify();
+        //notifyAll(); //For multiple producers and consumers
         queue.remove(item);
     }
 
