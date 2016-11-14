@@ -8,12 +8,12 @@ import java.util.Queue;
 //http://stackoverflow.com/questions/2536692/a-simple-scenario-using-wait-and-notify-in-java
 public class BlockingQueueWaitAndNotifySynchronised {
 
-    private final int LIMIT = 10;
+    private final int MAX_SIZE = 10;
     private Queue queue = new LinkedList();
 
     public synchronized void enqueue(Object item) throws InterruptedException {
 
-        while (queue.size() == LIMIT) {
+        while (queue.size() == MAX_SIZE) {
             wait();
         }
         queue.add(item);
